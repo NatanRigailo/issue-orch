@@ -46,7 +46,7 @@ jobs:
     needs: [lint, sast]
     steps:
       - uses: actions/checkout@v4
-      - uses: docker/setup-buildx-action@v3
+      - uses: docker/setup-buildx-action@v4
       - uses: docker/build-push-action@v5
         with:
           context: .
@@ -61,7 +61,7 @@ jobs:
     needs: build
     steps:
       - uses: actions/checkout@v4
-      - uses: docker/setup-buildx-action@v3
+      - uses: docker/setup-buildx-action@v4
       - uses: docker/build-push-action@v5
         with:
           context: .
