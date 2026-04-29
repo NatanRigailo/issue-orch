@@ -1,0 +1,16 @@
+services:
+  issue-orch:
+    image: ghcr.io/natanrigailo/issue-orch:latest
+    restart: unless-stopped
+    environment:
+      REPOS: ${REPOS}
+      SCHEDULE: ${SCHEDULE:-0 9 * * 1-5}
+      MAX_ISSUES_PER_RUN: ${MAX_ISSUES_PER_RUN:-1}
+      CLAUDE_TIMEOUT: ${CLAUDE_TIMEOUT:-1800}
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+    volumes:
+      # mount repos so claude can access the codebase
+      - ${HOME}/git:/home/user/git:ro
+      # mount gh and claude CLI configs
+      - ${HOME}/.config/gh:/home/appuser/.config/gh:ro
+      - ${HOME}/.claude:/home/appuser/.claude:ro
